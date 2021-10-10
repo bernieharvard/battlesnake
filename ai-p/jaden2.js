@@ -1,5 +1,19 @@
-function hdcola_getDirection(gridSize,snake,apples,direction){
-    let apple = indexToColRow(apples[0]);
+function jaden2_getDirection(gridSize,snake,apples,direction){
+    let smallest = 0
+    let appleDistance = gridSize * 2
+    for (let i = 0; i < apples.length; i++) {
+        let applerow = int(apples[i] / gridSize)
+        let applecol = apples[i] % gridSize
+        let snakerow = int(snake[0] / gridSize)
+        let snakecol = snake[0] % gridSize
+        let tempAppleDistance = abs(snakerow - applerow) + abs(snakecol - applecol)
+        if (tempAppleDistance< appleDistance){
+            smallest = i
+            appleDistance = tempAppleDistance
+        }
+    }  
+    
+    let apple = indexToColRow(apples[smallest]);
     let snakeHead = indexToColRow(snake[0]);
     if (apple[0] < snakeHead[0]){
         if ( snake.includes( snake[0] - gridSize) ){
@@ -37,12 +51,11 @@ function hdcola_getDirection(gridSize,snake,apples,direction){
         return direction;
     }
 }
+function jaden2_newGame(){
 
-function hdcola_newGame(){
     return;
 }
-
-ais['hdcola'] = {
-    getDirection: hdcola_getDirection,
-    newGame: hdcola_newGame
-};
+ais['jaden2'] = {
+    getDirection: jaden2_getDirection,
+    newGame: jaden2_newGame
+}

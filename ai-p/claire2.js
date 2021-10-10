@@ -1,6 +1,29 @@
-function hdcola_getDirection(gridSize,snake,apples,direction){
-    let apple = indexToColRow(apples[0]);
+function indexToColRow(index) {
+    return [ int(index / gridSize) , index % gridSize];
+}
+
+function colRowToIndex(col, row) {
+    return row * gridSize + col;
+}
+
+function claire2_getDirection(gridSize,snake,apples,direction){ 
+    let small = 0;
+    let distance = gridSize * 2
+    for (let count = 0; count < apples.length; count++){
+        let appleRow = int(apples[count] / gridSize);
+        let appleCol = apples[count] % gridSize;
+        let snakeRow = int(snake[0] / gridSize);
+        let snakeCol = snake[0] % gridSize
+        let distance2 = abs(snakeRow - appleRow) + abs(snakeCol - appleCol);
+        if (distance2 < distance){
+            small = count;
+            distance = distance2;
+        }
+    }  
+
+    let apple = indexToColRow(apples[small]);
     let snakeHead = indexToColRow(snake[0]);
+
     if (apple[0] < snakeHead[0]){
         if ( snake.includes( snake[0] - gridSize) ){
             if (direction === "r"){
@@ -38,11 +61,11 @@ function hdcola_getDirection(gridSize,snake,apples,direction){
     }
 }
 
-function hdcola_newGame(){
+function claire2_newGame(){
     return;
 }
 
-ais['hdcola'] = {
-    getDirection: hdcola_getDirection,
-    newGame: hdcola_newGame
+ais['claire2'] = {
+    getDirection: claire2_getDirection,
+    newGame: claire2_newGame
 };
